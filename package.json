@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "scrape-indeed": "^0.6.0"
+    "follow-redirects": "^1.12.1",
+    "jsdom": "^16.3.0",
+    "scrape-indeed": "^0.6.0",
+    "time-stamp": "^2.2.0",
+    "uuid": "^8.2.0"
   }
 }
