@@ -13,11 +13,11 @@ console.log('addTimeStamp', addTimeStamp);
 
 // Test with: node test.js 'Programmer' 'Vancouver' 25 50
 let options = {
-    title: process.argv[2],     // Programmer
-    location: process.argv[3],  // Vancouver
-    country: process.argv[4],   // Canada
-    radius: process.argv[5],    // 25 kilometer radius
-    count: process.argv[6]      // 50 job postings
+    title: "nurse",     // Programmer
+    location: "Toronto",  // Vancouver
+    country: "Canada",   // Canada
+    radius: "100",    // 25 kilometer radius
+    count: "50"      // 50 job postings
 };
 
 const fileName = `${options.title}_${options.location}_${options.country}_${addTimeStamp}`;
@@ -34,6 +34,7 @@ IndeedService.query(options)
 
         await https.get("https://" + element.href, async (resp) => {
             let data2 = '';
+            let description  ="";
           
             resp.on('data', (chunk) => {
                 data2 += chunk;
@@ -42,15 +43,15 @@ IndeedService.query(options)
             resp.on('end', () => {
               const dom = new JSDOM(data2);
               if(dom.window.document.getElementById("jobDescriptionText")) {
-                let description = dom.window.document.getElementById("jobDescriptionText").innerHTML;
-                element.description = description;
+                description = dom.window.document.getElementById("jobDescriptionText").innerHTML;
               }
+              element.description = description;
               
             });
         
-        fs.writeFile(fileName, JSON.stringify(jobList, null, 2), function (err) {
+        await fs.writeFile(fileName, JSON.stringify(jobList, null, 2), function (err) {
             if (err) throw err;
-            console.log('Saved!');
+            // console.log('Saved!');
         });
         // console.log("jobList: ", jobList);
 
