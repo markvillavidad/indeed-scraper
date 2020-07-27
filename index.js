@@ -21,11 +21,12 @@ let options = {
 };
 
 const fileName = `${options.title}_${options.location}_${options.country}_${addTimeStamp}`;
+let jobList = {};
 
 IndeedService.query(options)
 .then(async function (data) {
 
-    let jobList = {};
+
     jobList = data.jobList;
    
 
@@ -42,18 +43,13 @@ IndeedService.query(options)
         
             resp.on('end', () => {
               const dom = new JSDOM(data2);
-              if(dom.window.document.getElementById("jobDescriptionText")) {
-                description = dom.window.document.getElementById("jobDescriptionText").innerHTML;
+              const jobDescription =  dom.window.document.getElementById("jobDescriptionText");
+              if(jobDescription) {
+                description = jobDescription.innerHTML;
               }
               element.description = description;
               
             });
-        
-        await fs.writeFile(fileName, JSON.stringify(jobList, null, 2), function (err) {
-            if (err) throw err;
-            // console.log('Saved!');
-        });
-        // console.log("jobList: ", jobList);
 
         }).on("error", (err) => {
             console.log("Error: " + err.message);
@@ -61,6 +57,12 @@ IndeedService.query(options)
     })
 
 })
+.then(async function () {
+    await fs.writeFile(fileName, JSON.stringify(jobList, null, 2), function (err) {
+        if (err) throw err;
+        // console.log('Saved!');
+    });
+} )
 .catch(function(err) {
     console.log('Error: ' + err);
 });
