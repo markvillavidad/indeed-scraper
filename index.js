@@ -9,7 +9,7 @@ const fs = require('fs');
 
 const addTimeStamp = timestamp('YYYYMMDDHHmmssms');
 
-console.log('addTimeStamp', addTimeStamp);
+// console.log('addTimeStamp', addTimeStamp);
 
 // Test with: node test.js 'Programmer' 'Vancouver' 25 50
 let options = {
@@ -109,9 +109,9 @@ IndeedService.query(options)
       await asyncForEach(jobList, async (num) => {
         num.description = await getDescription(num.href);
         await waitFor(5000);
-        console.log(num);
+        console.log(JSON.stringify(num));
         objectToWrite.push(num);
-        console.log("objectToWrite", objectToWrite);
+        // console.log(objectToWrite);
         await fs.writeFile(fileName, JSON.stringify(jobList, null, 2), function (err) {
             if (err) throw err;
             // console.log('Saved!');
