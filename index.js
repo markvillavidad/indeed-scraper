@@ -13,8 +13,8 @@ console.log('addTimeStamp', addTimeStamp);
 
 // Test with: node test.js 'Programmer' 'Vancouver' 25 50
 let options = {
-    title: "nurse",     // Programmer
-    location: "Toronto",  // Vancouver
+    title: "health",     // Programmer
+    location: "alberta",  // Vancouver
     country: "Canada",   // Canada
     radius: "50",    // 25 kilometer radius
     count: "10"      // 50 job postings
@@ -108,7 +108,7 @@ IndeedService.query(options)
     const start = async () => {
       await asyncForEach(jobList, async (num) => {
         num.description = await getDescription(num.href);
-        await waitFor(50);
+        await waitFor(5000);
         console.log(num);
         objectToWrite.push(num);
         console.log("objectToWrite", objectToWrite);
